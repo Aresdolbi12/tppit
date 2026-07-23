@@ -48,6 +48,24 @@ jobs:
               json.dump(items[:8], open('src/data/news.json', 'w', encoding='utf-8'),
                         ensure_ascii=False, indent=1)
               print('news updated:', len(items))
+          # анонсы мероприятий: RSS нет — парсим листинг
+          req2 = urllib.request.Request(
+              'https://kuban.tpprf.ru/ru/announcements/',
+              headers={'User-Agent': 'Mozilla/5.0 (compatible; tppit-pages-build)'})
+          raw2 = urllib.request.urlopen(req2, timeout=20).read().decode('utf-8', 'replace')
+          ann, seen = [], set()
+          for m in re.finditer(r'<a[^>]+href="(/ru/announcements/(\d+)/)"[^>]*>(.*?)</a>', raw2, re.S):
+              title = ' '.join(html.unescape(re.sub(r'<[^>]+>', ' ', m.group(3))).split())
+              if not title or len(title) < 8 or m.group(1) in seen:
+                  continue
+              seen.add(m.group(1))
+              dm = re.findall(r'(\d{2}\.\d{2}\.\d{4})', raw2[max(0, m.start()-600):m.start()])
+              ann.append({'title': title, 'link': 'https://kuban.tpprf.ru' + m.group(1),
+                          'date': dm[-1] if dm else ''})
+          if ann:
+              json.dump(ann[:12], open('src/data/announcements.json', 'w', encoding='utf-8'),
+                        ensure_ascii=False, indent=1)
+              print('announcements updated:', len(ann))
           EOF
       - run: npm ci
         working-directory: web
