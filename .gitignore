@@ -10,3 +10,5 @@ graphify-out/*.tmp
 Thumbs.db
 .DS_Store
 graphify-out/
+# workflow требует gh-scope workflow — включим позже через gh auth refresh -s workflow
+.github/
