@@ -22,13 +22,18 @@ export interface ChamberService {
   url: string
 }
 
+/* URL проверены по меню kuban.tpprf.ru 2026-07-23 */
 export const CHAMBER_SERVICES: ChamberService[] = [
-  { title: 'Экспертиза', desc: 'Товарная, судебная и таможенная экспертиза', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Сертификация', desc: 'Сертификаты происхождения, СТ-1, форс-мажор', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Оценка', desc: 'Оценка имущества, бизнеса и активов', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Переводы', desc: 'Письменные и устные переводы с заверением', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Юридические услуги', desc: 'Правовая поддержка бизнеса, МКАС', url: PARENT_SITE + '/ru/services/' },
-  { title: 'ВЭД', desc: 'Поддержка внешнеэкономической деятельности', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Деловое образование', desc: 'Семинары, вебинары, подготовка кадров', url: PARENT_SITE + '/ru/services/' },
-  { title: 'Выставки и конгрессы', desc: 'Конгресс-центр, бизнес-миссии, патронаж', url: PARENT_SITE + '/ru/services/' },
+  { title: 'Экспертиза', desc: 'Товарная экспертиза: качество, количество, комплектность — авторитетное подтверждение при спорах и ВЭД', url: PARENT_SITE + '/ru/services/ekspertiza-s251/' },
+  { title: 'Сертификация', desc: 'Сертификаты происхождения товаров (СТ-1) и подтверждение соответствия продукции', url: PARENT_SITE + '/ru/services/sertifikatsiya-s283/' },
+  { title: 'Оценка', desc: 'Оценка недвижимости, оборудования, транспорта, земли, бизнеса и интеллектуальной собственности', url: PARENT_SITE + '/ru/services/otsenka-s287/' },
+  { title: 'Переводы', desc: 'Устные и письменные переводы практически на все языки мира', url: PARENT_SITE + '/ru/services/31383/' },
+  { title: 'Интеллектуальная собственность', desc: 'Правовая охрана и защита: товарные знаки, патенты, авторские права', url: PARENT_SITE + '/ru/services/pravovaya_okhrana_i_zashchita_intellektualnoy_sobstvennosti-s297/' },
+  { title: 'Юридические услуги', desc: 'Правовое консультирование и обслуживание предприятий, медиация, третейское разбирательство', url: PARENT_SITE + '/ru/services/yuridicheskie_uslugi-s307/' },
+  { title: 'Поддержка ВЭД', desc: 'Поиск зарубежных партнёров, бизнес-миссии, карты АТЭС, внешнеэкономическое сопровождение', url: PARENT_SITE + '/ru/services/podderzhka_vneshneekonomicheskoy_deyatelnosti-s475/' },
+  { title: 'Организация мероприятий', desc: 'Выставки, конгрессы, деловые встречи и патронаж палаты', url: PARENT_SITE + '/ru/services/vystavki_kongressy_patronazh-s269/' },
+  { title: 'Проверка деловых партнёров', desc: 'Информация о контрагентах в России и за рубежом, поиск партнёров', url: PARENT_SITE + '/ru/services/informatsionno_konsultatsionnye_uslugi-s302/' },
+  { title: 'Деловое образование', desc: 'Центр делового образования: семинары, вебинары, повышение квалификации', url: PARENT_SITE + '/ru/tsentr-delovogo-obrazovaniya/' },
+  { title: 'Реестр надёжных партнёров', desc: 'Негосударственный реестр надёжных юрлиц и ИП, который ведёт система ТПП', url: PARENT_SITE + '/ru/reestr-nadezhnykh-partnerov' },
+  { title: 'Аренда залов и офисов', desc: 'Конференц-залы, переговорные и офисы в БЦ «Меркурий»', url: PARENT_SITE + '/ru/arenda-konferents-zalov' },
 ]
