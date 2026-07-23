@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 4 * * *'   # ежедневно 07:00 МСК — подтянуть свежие новости из RSS
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Обновить новости из RSS основного сайта
+        working-directory: web
+        continue-on-error: true
+        run: |
+          python3 - << 'EOF'
+          import re, json, html, urllib.request
+          req = urllib.request.Request(
+              'https://kuban.tpprf.ru/ru/news/?RSS',
+              headers={'User-Agent': 'Mozilla/5.0 (compatible; tppit-pages-build)'})
+          raw = urllib.request.urlopen(req, timeout=20).read().decode('utf-8')
+          items = []
+          for m in re.finditer(r'<item>(.*?)</item>', raw, re.S):
+              b = m.group(1)
+              def g(tag):
+                  mm = re.search(rf'<{tag}>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</{tag}>', b, re.S)
+                  return html.unescape(mm.group(1).strip()) if mm else ''
+              items.append({'title': g('title'), 'link': g('link'), 'date': g('pubDate'),
+                            'desc': re.sub(r'<[^>]+>', '', g('description'))[:220]})
+          if items:
+              json.dump(items[:8], open('src/data/news.json', 'w', encoding='utf-8'),
+                        ensure_ascii=False, indent=1)
+              print('news updated:', len(items))
+          EOF
+      - run: npm ci
+        working-directory: web
+      - run: npm run build
+        working-directory: web
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
