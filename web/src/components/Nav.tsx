@@ -4,9 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { PARENT_SITE } from '../lib/site'
 
 const LINKS = [
-  { to: '/shtrih-kody', label: 'Штрих-коды' },
-  { to: '/proverka', label: 'Проверка кода' },
+  { to: '/o-palate', label: 'О палате' },
   { to: '/uslugi', label: 'Услуги' },
+  { to: '/shtrih-kody', label: 'Штрих-коды' },
   { to: '/novosti', label: 'Новости' },
   { to: '/kontakty', label: 'Контакты' },
 ]

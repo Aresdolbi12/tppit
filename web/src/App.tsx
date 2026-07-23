@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import About from './pages/About'
 import Barcodes from './pages/Barcodes'
 import Check from './pages/Check'
 import Pricing from './pages/Pricing'
@@ -26,6 +27,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/o-palate" element={<About />} />
           <Route path="/shtrih-kody" element={<Barcodes />} />
           <Route path="/proverka" element={<Check />} />
           <Route path="/tarify" element={<Pricing />} />

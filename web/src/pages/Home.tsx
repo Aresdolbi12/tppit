@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import { ArrowCta, Eyebrow } from '../components/UI'
 import news from '../data/news.json'
-import { REGISTRY_TOTAL, fmt } from '../lib/registry'
 import { CHAMBER_SERVICES, ORG_SLOGAN, PARENT_SITE } from '../lib/site'
 
 /* Быстрые сервисы — зеркало меню основного сайта (URL проверены 2026-07-23). */
@@ -62,9 +61,9 @@ export default function Home() {
             transition={{ duration: 0.9, delay: 0.18, ease: [0.32, 0.72, 0, 1] }}
           >
             Координирующий центр системы торгово-промышленных палат Кубани:
-            представляем интересы бизнеса, объединяем предприятия региона
-            и оказываем услуги — от экспертизы и сертификации до штрихового
-            кодирования и электронной подписи.
+            представляем интересы бизнеса и объединяем предприятия региона.
+            Экспертиза, сертификация, оценка, переводы, юридические услуги
+            и поддержка внешнеэкономической деятельности.
           </motion.p>
 
           <motion.div
@@ -74,7 +73,7 @@ export default function Home() {
             transition={{ duration: 0.9, delay: 0.26, ease: [0.32, 0.72, 0, 1] }}
           >
             <ArrowCta to="/uslugi">Услуги палаты</ArrowCta>
-            <ArrowCta to="/shtrih-kody" ghost>Штрих-коды онлайн</ArrowCta>
+            <ArrowCta to="/kontakty" ghost>Связаться с палатой</ArrowCta>
           </motion.div>
         </div>
 
@@ -123,7 +122,7 @@ export default function Home() {
             ['1909', 'год основания биржевого общества'],
             ['32', 'палаты в краевой системе'],
             ['5 200+', 'предприятий и организаций'],
-            [fmt(REGISTRY_TOTAL), 'штрих-кодов в реестре ИСАИ'],
+            ['35 лет', 'системе ТПП России'],
           ].map(([v, l], i) => (
             <Reveal key={l} delay={i * 0.08} className="px-6 py-10 max-lg:[&:nth-child(3)]:border-t max-lg:[&:nth-child(4)]:border-t max-lg:[&:nth-child(n+3)]:border-hairline">
               <p className="font-display text-2xl font-semibold text-snow sm:text-3xl">{v}</p>
@@ -165,28 +164,23 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.08} className="lg:col-span-5">
-            <div className="grid h-full gap-4">
-              <Link
-                to="/proverka"
-                className="group flex flex-col justify-between rounded-[2rem] border border-hairline bg-white/[0.03] p-7 transition-colors duration-700 hover:border-hairline-2"
-              >
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-verify">онлайн · бесплатно</p>
-                  <h3 className="mt-2.5 font-display text-lg font-semibold">Проверка штрих-кода</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-fog">По номеру кода или ИНН — паспорт кода из реестра.</p>
-                </div>
-              </Link>
-              <Link
-                to="/uslugi"
-                className="group flex flex-col justify-between rounded-[2rem] border border-hairline bg-white/[0.03] p-7 transition-colors duration-700 hover:border-hairline-2"
-              >
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">СЦ Контур</p>
-                  <h3 className="mt-2.5 font-display text-lg font-semibold">Электронная подпись</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-fog">Выпуск УКЭП для физлиц и сотрудников организаций.</p>
-                </div>
-              </Link>
-            </div>
+            <Link
+              to="/uslugi"
+              className="group flex h-full flex-col justify-between rounded-[2rem] border border-hairline bg-white/[0.03] p-7 transition-colors duration-700 hover:border-hairline-2"
+            >
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">СЦ Контур</p>
+                <h3 className="mt-2.5 font-display text-lg font-semibold">Электронная подпись</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-fog">
+                  Выпуск квалифицированной электронной подписи для физических лиц
+                  и сотрудников организаций.
+                </p>
+              </div>
+              <span className="mt-6 inline-flex items-center gap-2 text-sm text-snow">
+                Подробнее
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
           </Reveal>
         </div>
 
@@ -246,15 +240,21 @@ export default function Home() {
             <div className="bars-texture absolute inset-0 opacity-50" />
             <div className="relative max-w-2xl">
               <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
-                Нужен штрих-код на продукцию?
+                Палата — рядом с вашим бизнесом
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-snow/80">
-                Палата присвоит уникальные номера, подготовит макеты и выдаст
-                свидетельство за 1–2 дня. Посчитайте стоимость под ваше количество позиций.
+                Членам ТПП Краснодарского края — скидки на услуги палаты,
+                защита интересов и участие в деловых мероприятиях региона.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ArrowCta to="/shtrih-kody">Сервис штрих-кодов</ArrowCta>
-                <ArrowCta to="/kontakty" ghost>Контакты</ArrowCta>
+                <ArrowCta to="/kontakty">Связаться с палатой</ArrowCta>
+                <a
+                  href={PARENT_SITE + '/ru/members/'}
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-snow transition-colors hover:bg-white/10"
+                >
+                  Члены ТПП ↗
+                </a>
               </div>
             </div>
           </div>
