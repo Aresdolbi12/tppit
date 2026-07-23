@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { PARENT_SITE } from '../lib/site'
 
 const LINKS = [
+  { to: '/shtrih-kody', label: 'Штрих-коды' },
   { to: '/proverka', label: 'Проверка кода' },
-  { to: '/tarify', label: 'Тарифы' },
   { to: '/uslugi', label: 'Услуги' },
   { to: '/novosti', label: 'Новости' },
   { to: '/kontakty', label: 'Контакты' },
@@ -33,8 +33,8 @@ export default function Nav() {
         <header className="pointer-events-auto flex w-full max-w-4xl items-center gap-1 rounded-full border border-hairline-2 bg-[rgba(10,18,32,0.72)] py-1.5 pl-4 pr-1.5 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
           <Link to="/" className="mr-auto flex items-center gap-2.5" onClick={() => setOpen(false)}>
             <Mercury className="h-6 w-auto opacity-90" />
-            <span className="font-display text-[11px] font-medium uppercase tracking-[0.14em] text-snow whitespace-nowrap">
-              ТПП <span className="text-pulse">·</span> штрих-коды
+            <span className="font-display text-[11px] font-medium uppercase tracking-[0.12em] text-snow whitespace-nowrap">
+              ТПП <span className="text-pulse">·</span> Краснодарский край
             </span>
           </Link>
 

@@ -30,8 +30,11 @@ export default function Services() {
               <li>Соответствие ГОСТ Р 51201-98. Срок — 1–2 дня.</li>
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link to="/tarify" className="rounded-full bg-pulse px-6 py-3 text-sm font-medium text-void transition-transform duration-500 active:scale-[0.97]">
-                Тарифы →
+              <Link to="/shtrih-kody" className="rounded-full bg-pulse px-6 py-3 text-sm font-medium text-void transition-transform duration-500 active:scale-[0.97]">
+                Страница услуги →
+              </Link>
+              <Link to="/tarify" className="rounded-full border border-hairline-2 px-6 py-3 text-sm text-snow transition-colors hover:bg-white/5">
+                Тарифы
               </Link>
               <a href={`mailto:${SERVICE_EMAIL}`} className="rounded-full border border-hairline-2 px-6 py-3 text-sm text-snow transition-colors hover:bg-white/5">
                 Заявка на почту
