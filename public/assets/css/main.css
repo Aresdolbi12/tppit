@@ -1,0 +1,338 @@
+/* ============================================================
+   tppit.ru — сервис штрихового кодирования ТПП Краснодарского края.
+   Фирменный стиль основного сайта kuban.tpprf.ru:
+   белый фон, синяя гамма системы ТПП РФ, Calibri.
+   ============================================================ */
+
+/* --- Токены (цвета сняты с kuban.tpprf.ru 2026-07-23) --- */
+:root {
+  --paper:   #FFFFFF;   /* фон страницы — белый, как на основном сайте */
+  --paper-2: #F0F4F8;   /* светло-голубая подложка секций/таблиц */
+  --ink:     #333333;
+  --brand:   #16568B;   /* тёмно-синий ТПП — заголовки, кнопки, подвал */
+  --nav:     #276EA9;   /* средний синий — полоса навигации */
+  --stamp:   #2871AA;   /* синий ссылок и акцентов */
+  --wheat:   #2871AA;   /* бывший золотой акцент — теперь корпоративный синий */
+  --line:    #DCDCDB;
+  --muted:   #5F6B76;
+  --ok:      #1D7A46;
+  --err:     #B3362B;
+
+  --font-display: Calibri, 'Segoe UI', Arial, Helvetica, sans-serif;
+  --font-body: Calibri, 'Segoe UI', Arial, Helvetica, sans-serif;
+  --font-mono: Consolas, 'Courier New', monospace;
+
+  --w: 1120px;
+}
+
+/* --- Сброс/база --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1rem/1.65 var(--font-body);
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--stamp); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--brand); }
+:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; border-radius: 2px; }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; color: var(--ink); margin: 0 0 .5em; }
+h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.4rem, 2.8vw, 1.9rem); }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0 0 1em; }
+
+.wrap { max-width: var(--w); margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }
+
+/* Ярлык-«ушко» секции: моно, капс, короткий штрих-паттерн слева */
+.eyebrow {
+  font: 700 .74rem/1 var(--font-body);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 0 0 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px; height: 13px;
+  background: repeating-linear-gradient(90deg,
+    var(--wheat) 0 2px, transparent 2px 4px,
+    var(--wheat) 4px 7px, transparent 7px 9px,
+    var(--wheat) 9px 10px, transparent 10px 13px);
+}
+
+/* ============ Шапка (по образцу kuban.tpprf.ru) ============ */
+.site-header { background: #fff; }
+
+/* Белая полоса бренда: Меркурий + название Союза + телефоны */
+.brand-bar .wrap {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  padding-top: 14px; padding-bottom: 12px;
+}
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--brand); margin-right: auto; }
+.logo img { display: block; width: 88px; height: 45px; }
+.logo b {
+  font: 700 1.02rem/1.25 var(--font-display);
+  display: block; text-transform: uppercase; letter-spacing: .02em;
+  color: var(--nav); max-width: 340px;
+}
+.logo span {
+  font: 400 .78rem/1.4 var(--font-body);
+  color: var(--stamp); display: block; margin-top: 2px;
+}
+.head-contacts { text-align: right; font-size: .95rem; line-height: 1.5; }
+.head-contacts a { color: var(--brand); text-decoration: none; font-weight: 700; display: block; white-space: nowrap; }
+.head-contacts a:hover { color: var(--stamp); }
+.head-contacts small { color: var(--muted); font-size: .78rem; }
+
+/* Синяя полоса навигации */
+.site-nav { background: var(--nav); }
+.site-nav .wrap { display: flex; flex-wrap: wrap; }
+.site-nav a:first-child { margin-left: -18px; }
+.site-nav a {
+  font: 700 .82rem/1 var(--font-body);
+  text-transform: uppercase; letter-spacing: .04em;
+  color: #fff; text-decoration: none;
+  padding: 13px 18px;
+}
+.site-nav a:hover { background: var(--brand); }
+.site-nav a[aria-current="page"] { background: var(--brand); }
+.site-nav a.ext { margin-left: auto; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: .85rem; }
+
+/* Светлая лента-идентификатор раздела */
+.sub-strip { background: var(--paper-2); border-bottom: 1px solid var(--line); }
+.sub-strip .wrap {
+  font: 700 .72rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--brand); padding-top: 8px; padding-bottom: 8px;
+}
+
+/* ============ Герой ============ */
+.hero { padding: clamp(40px, 7vw, 84px) 0 clamp(36px, 6vw, 72px); border-bottom: 1px solid var(--line); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero p.lead { font-size: 1.08rem; color: var(--muted); max-width: 46ch; }
+
+/* Живой штрих-код */
+.barcode-live { text-align: center; }
+.barcode-live svg { width: 100%; max-width: 380px; height: auto; }
+.barcode-caption { font: 400 .78rem/1.5 var(--font-mono); color: var(--muted); margin-top: 10px; }
+
+/* ============ Карточка проверки ============ */
+.check-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--brand);
+  box-shadow: 0 1px 2px rgba(23, 26, 31, .05), 0 8px 24px -12px rgba(23, 26, 31, .12);
+  padding: clamp(18px, 3vw, 28px);
+  max-width: 560px;
+}
+.check-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.check-tabs button {
+  appearance: none; background: none; border: 0; cursor: pointer;
+  font: 500 .95rem/1 var(--font-body); color: var(--muted);
+  padding: 10px 14px; margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+}
+.check-tabs button[aria-selected="true"] { color: var(--stamp); border-bottom-color: var(--stamp); }
+.check-form { display: flex; gap: 10px; flex-wrap: wrap; }
+.check-form label { flex: 1 1 100%; font: 500 .8rem/1.4 var(--font-body); color: var(--muted); }
+.check-form input[type="text"] {
+  flex: 1 1 220px;
+  font: 500 1.15rem/1 var(--font-mono);
+  letter-spacing: .08em;
+  padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 3px;
+  background: var(--paper); color: var(--ink);
+  min-width: 0;
+}
+.check-form input[type="text"]:focus { border-color: var(--stamp); outline: none; box-shadow: 0 0 0 3px rgba(43, 84, 196, .15); }
+.check-form button[type="submit"] {
+  font: 600 .95rem/1 var(--font-body);
+  background: var(--brand); color: #fff;
+  border: 0; border-radius: 3px; cursor: pointer;
+  padding: 12px 26px;
+}
+.check-form button[type="submit"]:hover { background: var(--stamp); }
+.check-hint { font-size: .8rem; color: var(--muted); margin: 10px 0 0; }
+.check-hint.err { color: var(--err); }
+
+/* ============ Результат проверки ============ */
+.result { margin-top: clamp(28px, 4vw, 44px); }
+.passport {
+  position: relative;
+  background: #fff; border: 1px solid var(--line);
+  padding: clamp(20px, 3.5vw, 36px);
+  max-width: 720px;
+  box-shadow: 0 1px 2px rgba(23,26,31,.05);
+}
+.passport .bc { text-align: center; margin-bottom: 18px; }
+.passport .bc svg { max-width: 300px; width: 100%; height: auto; }
+.passport dl {
+  display: grid; grid-template-columns: max-content 1fr; gap: 8px 22px; margin: 0;
+}
+.passport dt { font: 500 .78rem/1.6 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding-top: 2px; }
+.passport dd { margin: 0; font-size: .98rem; }
+.passport dd.num { font-family: var(--font-mono); }
+
+/* «Печать» реестра */
+.stamp {
+  position: absolute; top: 16px; right: 16px;
+  width: 108px; height: 108px;
+  border: 2px solid var(--stamp); border-radius: 50%;
+  color: var(--stamp);
+  display: grid; place-content: center; text-align: center;
+  font: 500 .58rem/1.45 var(--font-mono);
+  letter-spacing: .1em; text-transform: uppercase;
+  transform: rotate(-8deg);
+  opacity: .82;
+  padding: 10px;
+}
+.stamp::before { content: ''; position: absolute; inset: 5px; border: 1px solid var(--stamp); border-radius: 50%; }
+.stamp b { font-size: .66rem; display: block; margin: 3px 0; }
+
+.not-found {
+  border: 1px solid var(--line); border-left: 3px solid var(--err);
+  background: #fff; padding: 20px 24px; max-width: 720px;
+}
+.not-found h3 { color: var(--err); margin-bottom: .4em; }
+.not-found p { margin-bottom: .4em; }
+
+/* Таблица результатов по ИНН */
+.org-head { max-width: 720px; background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--brand); padding: 18px 24px; margin-bottom: 20px; }
+.org-head h3 { margin-bottom: 4px; }
+.org-head p { margin: 0; color: var(--muted); font-size: .9rem; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); background: #fff; }
+table.codes { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.codes th {
+  font: 500 .72rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .08em;
+  text-align: left; color: var(--muted);
+  background: var(--paper-2);
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+table.codes td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.codes tr:last-child td { border-bottom: 0; }
+table.codes td.num { font-family: var(--font-mono); white-space: nowrap; }
+table.codes tr:hover td { background: var(--paper); }
+
+/* ============ Секции главной ============ */
+.section { padding: clamp(40px, 6vw, 72px) 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.section-head { margin-bottom: clamp(22px, 3vw, 36px); max-width: 640px; }
+.section-head p { color: var(--muted); margin: 0; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.card {
+  background: #fff; border: 1px solid var(--line);
+  padding: 22px 24px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  transition: border-color .15s, box-shadow .15s;
+}
+.card:hover { border-color: var(--brand); box-shadow: 0 6px 18px -10px rgba(27, 58, 107, .35); color: var(--ink); }
+.card .tag { font: 500 .68rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--wheat); }
+.card h3 { margin: 0; }
+.card p { margin: 0; color: var(--muted); font-size: .92rem; flex-grow: 1; }
+.card .more { font: 500 .85rem/1 var(--font-body); color: var(--stamp); }
+
+/* Шаги (реальная последовательность — нумерация оправдана) */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; counter-reset: step; }
+.step { background: #fff; border: 1px solid var(--line); padding: 20px 22px; counter-increment: step; }
+.step::before {
+  content: counter(step, decimal-leading-zero);
+  font: 500 .85rem/1 var(--font-mono); color: var(--wheat);
+  display: block; margin-bottom: 12px;
+}
+.step h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.step p { margin: 0; font-size: .9rem; color: var(--muted); }
+
+/* Цифры о палате */
+.facts { display: flex; gap: clamp(24px, 5vw, 64px); flex-wrap: wrap; }
+.fact b { font: 700 2rem/1.1 var(--font-display); color: var(--brand); display: block; }
+.fact span { font-size: .85rem; color: var(--muted); }
+
+/* ============ Контент-страницы ============ */
+.page-head { padding: clamp(32px, 5vw, 56px) 0 clamp(20px, 3vw, 32px); border-bottom: 1px solid var(--line); }
+.page-head p.lead { color: var(--muted); max-width: 60ch; margin: 0; }
+.prose { max-width: 72ch; padding: clamp(28px, 4vw, 44px) 0 clamp(40px, 6vw, 72px); }
+.prose h2 { margin-top: 1.6em; }
+.prose h3 { margin-top: 1.4em; }
+.prose ul, .prose ol { padding-left: 1.3em; margin: 0 0 1em; }
+.prose li { margin-bottom: .35em; }
+.prose figure { margin: 1.5em 0; text-align: center; }
+.prose figure img { border: 1px solid var(--line); background: #fff; padding: 10px; }
+.prose figcaption { font: 400 .8rem/1.5 var(--font-mono); color: var(--muted); margin-top: 8px; }
+.prose .note {
+  border: 1px solid var(--line); border-left: 3px solid var(--wheat);
+  background: #fff; padding: 14px 18px; margin: 1.4em 0;
+  font-size: .95rem;
+}
+.prose table { border-collapse: collapse; width: 100%; font-size: .92rem; background: #fff; }
+.prose table th, .prose table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; }
+.prose table th { background: var(--paper-2); font-weight: 600; }
+
+/* Врезка «проверить» на контентных страницах */
+.cta-strip {
+  border: 1px solid var(--line); border-top: 3px solid var(--brand);
+  background: #fff; padding: 22px 26px; margin: 2em 0;
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+}
+.cta-strip p { margin: 0; flex: 1 1 260px; }
+.btn {
+  display: inline-block; font: 600 .95rem/1 var(--font-body);
+  background: var(--brand); color: #fff !important; text-decoration: none;
+  padding: 12px 24px; border-radius: 3px;
+}
+.btn:hover { background: var(--stamp); }
+.btn.ghost { background: none; color: var(--brand) !important; border: 1px solid var(--brand); }
+.btn.ghost:hover { border-color: var(--stamp); color: var(--stamp) !important; }
+
+/* ============ Подвал ============ */
+.site-footer { background: var(--brand); color: #E9EDF5; margin-top: auto; }
+.site-footer .wrap {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px; padding-top: clamp(32px, 5vw, 48px); padding-bottom: 24px;
+}
+.site-footer h4 { font: 700 .74rem/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: #A9C4DC; margin: 0 0 14px; }
+.site-footer a { color: #E9EDF5; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; color: #fff; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: 8px; font-size: .92rem; }
+.site-footer .legal {
+  grid-column: 1 / -1;
+  border-top: 1px solid rgba(233, 237, 245, .18);
+  padding-top: 16px;
+  font-size: .8rem; color: #9FB0CE;
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.footer-barcode { height: 26px; margin-bottom: 10px; opacity: .85;
+  background: repeating-linear-gradient(90deg,
+    #E9EDF5 0 2px, transparent 2px 5px, #E9EDF5 5px 6px, transparent 6px 8px,
+    #E9EDF5 8px 12px, transparent 12px 14px, #E9EDF5 14px 15px, transparent 15px 19px);
+  width: 96px;
+}
+
+/* ============ Разное ============ */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--stamp); color: #fff; padding: 10px 16px; z-index: 10; }
+.skip-link:focus { left: 12px; top: 12px; }
+
+@media (max-width: 860px) {
+  .site-nav a:first-child { margin-left: 0; }
+  .hero .wrap { grid-template-columns: 1fr; }
+  .barcode-live { order: -1; }
+  .barcode-live svg { max-width: 300px; }
+  .stamp { position: static; transform: rotate(-4deg); margin: 0 0 16px auto; }
+  .passport dl { grid-template-columns: 1fr; gap: 2px; }
+  .passport dt { padding-top: 10px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .barcode-live svg rect { transition: height .18s ease, y .18s ease; }
+  .card { transition: border-color .15s, box-shadow .15s, transform .15s; }
+  .card:hover { transform: translateY(-2px); }
+}

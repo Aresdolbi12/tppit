@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/unbounded';
+@import '@fontsource/golos-text/400.css';
+@import '@fontsource/golos-text/500.css';
+@import '@fontsource/golos-text/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+@theme {
+  --font-display: 'Unbounded Variable', system-ui, sans-serif;
+  --font-sans: 'Golos Text', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', Consolas, monospace;
+
+  /* Глубокий сине-чёрный мир сканера */
+  --color-void: #060a12;
+  --color-abyss: #0a1220;
+  --color-pane: #0e1729;
+  --color-hairline: rgba(220, 232, 245, 0.08);
+  --color-hairline-2: rgba(220, 232, 245, 0.14);
+  --color-fog: #8fa0b3;
+  --color-snow: #e8eef6;
+  --color-pulse: #4da3ff;      /* фирменный синий ТПП, разогнанный до неона */
+  --color-pulse-deep: #16568b;
+  --color-laser: #ff4d4d;      /* красный лазер сканера */
+  --color-verify: #34d399;     /* подтверждение регистрации */
+
+  --ease-mass: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-snow);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Атмосфера: две мягких радиальных туманности + зерно */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(58rem 34rem at 82% -12%, rgba(38, 110, 169, 0.22), transparent 65%),
+    radial-gradient(46rem 30rem at -8% 38%, rgba(22, 86, 139, 0.18), transparent 60%),
+    radial-gradient(34rem 26rem at 55% 118%, rgba(77, 163, 255, 0.10), transparent 60%);
+}
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Тонкая вертикальная штрих-текстура для декоративных плоскостей */
+.bars-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(232, 238, 246, 0.05) 0 2px,
+    transparent 2px 5px,
+    rgba(232, 238, 246, 0.03) 5px 6px,
+    transparent 6px 11px,
+    rgba(232, 238, 246, 0.05) 11px 14px,
+    transparent 14px 18px
+  );
+}
+
+::selection {
+  background: rgba(77, 163, 255, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-pulse);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
