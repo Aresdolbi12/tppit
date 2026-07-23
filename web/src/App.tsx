@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Membership from './pages/Membership'
+import Region from './pages/Region'
 import Barcodes from './pages/Barcodes'
 import Check from './pages/Check'
 import Pricing from './pages/Pricing'
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/o-palate" element={<About />} />
           <Route path="/chlenstvo" element={<Membership />} />
+          <Route path="/region" element={<Region />} />
           <Route path="/shtrih-kody" element={<Barcodes />} />
           <Route path="/proverka" element={<Check />} />
           <Route path="/tarify" element={<Pricing />} />
