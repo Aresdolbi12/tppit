@@ -22,6 +22,7 @@ export default function Footer() {
           <p className="font-display text-[11px] uppercase tracking-[0.2em] text-fog">Сервис</p>
           <ul className="mt-4 space-y-2 text-sm text-fog">
             <li><Link className="hover:text-snow" to="/o-palate">О палате</Link></li>
+            <li><Link className="hover:text-snow" to="/chlenstvo">Членство в ТПП</Link></li>
             <li><Link className="hover:text-snow" to="/uslugi">Услуги палаты</Link></li>
             <li><Link className="hover:text-snow" to="/proverka">Проверить штрих-код</Link></li>
             <li><Link className="hover:text-snow" to="/tarify">Тарифы и калькулятор</Link></li>

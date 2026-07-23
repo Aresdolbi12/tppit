@@ -247,14 +247,8 @@ export default function Home() {
                 защита интересов и участие в деловых мероприятиях региона.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ArrowCta to="/kontakty">Связаться с палатой</ArrowCta>
-                <a
-                  href={PARENT_SITE + '/ru/members/'}
-                  rel="noopener"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-snow transition-colors hover:bg-white/10"
-                >
-                  Члены ТПП ↗
-                </a>
+                <ArrowCta to="/chlenstvo">Вступить в палату</ArrowCta>
+                <ArrowCta to="/kontakty" ghost>Связаться с палатой</ArrowCta>
               </div>
             </div>
           </div>

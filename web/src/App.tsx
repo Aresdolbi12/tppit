@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
+import Membership from './pages/Membership'
 import Barcodes from './pages/Barcodes'
 import Check from './pages/Check'
 import Pricing from './pages/Pricing'
@@ -28,6 +29,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/o-palate" element={<About />} />
+          <Route path="/chlenstvo" element={<Membership />} />
           <Route path="/shtrih-kody" element={<Barcodes />} />
           <Route path="/proverka" element={<Check />} />
           <Route path="/tarify" element={<Pricing />} />
