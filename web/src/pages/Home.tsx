@@ -3,14 +3,14 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import { ArrowCta, Eyebrow } from '../components/UI'
 import news from '../data/news.json'
-import { CHAMBER_SERVICES, ORG_SLOGAN, PARENT_SITE } from '../lib/site'
+import { CHAMBER_SERVICES, ORG_SLOGAN } from '../lib/site'
 
-/* Быстрые сервисы — зеркало меню основного сайта (URL проверены 2026-07-23). */
+/* Быстрые разделы сайта */
 const QUICK_LINKS = [
-  { title: 'О регионе', url: PARENT_SITE + '/ru/region/' },
-  { title: 'Члены ТПП', url: PARENT_SITE + '/ru/members/' },
-  { title: 'Анонсы и мероприятия', url: PARENT_SITE + '/ru/announcements/' },
-  { title: 'Календарь событий', url: PARENT_SITE + '/ru/events/' },
+  { title: 'О палате', to: '/o-palate' },
+  { title: 'Членство в ТПП', to: '/chlenstvo' },
+  { title: 'Анонсы и мероприятия', to: '/novosti' },
+  { title: 'О регионе', to: '/region' },
 ]
 
 /* Главная — портал палаты: наполнение по образцу kuban.tpprf.ru. */
@@ -99,14 +99,13 @@ export default function Home() {
               <ul className="mt-7 divide-y divide-hairline border-t border-hairline">
                 {QUICK_LINKS.map(l => (
                   <li key={l.title}>
-                    <a
-                      href={l.url}
-                      rel="noopener"
+                    <Link
+                      to={l.to}
                       className="group flex items-center justify-between py-3.5 text-sm text-fog transition-colors duration-500 hover:text-snow"
                     >
                       {l.title}
-                      <span className="text-xs opacity-40 transition-all duration-500 group-hover:translate-x-0.5 group-hover:opacity-100">↗</span>
-                    </a>
+                      <span className="text-xs opacity-40 transition-all duration-500 group-hover:translate-x-0.5 group-hover:opacity-100">→</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -120,8 +119,8 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-hairline lg:grid-cols-4">
           {[
             ['1909', 'год основания биржевого общества'],
-            ['32', 'палаты в краевой системе'],
-            ['5 200+', 'предприятий и организаций'],
+            ['11', 'межрайонных палат в системе'],
+            ['12', 'подразделений и отделов'],
             ['35 лет', 'системе ТПП России'],
           ].map(([v, l], i) => (
             <Reveal key={l} delay={i * 0.08} className="px-6 py-10 max-lg:[&:nth-child(3)]:border-t max-lg:[&:nth-child(4)]:border-t max-lg:[&:nth-child(n+3)]:border-hairline">
