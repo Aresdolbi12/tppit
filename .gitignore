@@ -1,0 +1,14 @@
+# secrets — только на сервере
+app/secrets.php
+# deps/build
+node_modules/
+web/dist/
+# graphify
+graphify-out/.graphify_python/
+graphify-out/*.tmp
+# os
+Thumbs.db
+.DS_Store
+graphify-out/
+# workflow требует gh-scope workflow — включим позже через gh auth refresh -s workflow
+.github/
