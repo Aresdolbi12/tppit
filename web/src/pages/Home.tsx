@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Reveal from '../components/Reveal'
 import { ArrowCta, Eyebrow } from '../components/UI'
 import news from '../data/news.json'
+import vestnik from '../data/vestnik.json'
 import { CHAMBER_SERVICES, ORG_SLOGAN } from '../lib/site'
 
 /* Быстрые разделы сайта */
@@ -114,6 +115,124 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ================= НОВОСТИ — ПЕРВЫЙ БЛОК (публичная деятельность палаты) ================= */}
+      <section className="border-y border-hairline bg-abyss/40 py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-8">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <Eyebrow>лента палаты · обновляется ежедневно</Eyebrow>
+              <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">Новости</h2>
+            </div>
+            <Link to="/novosti" className="text-sm text-fog transition-colors hover:text-snow">
+              Все новости и анонсы →
+            </Link>
+          </Reveal>
+
+          <div className="mt-12 grid gap-4 lg:grid-cols-2">
+            {/* Главная новость — крупно */}
+            {news[0] && (
+              <Reveal>
+                <a
+                  href={news[0].link}
+                  rel="noopener"
+                  className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[2rem] border border-hairline"
+                >
+                  {news[0].img && (
+                    <img
+                      src={import.meta.env.BASE_URL + news[0].img}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-void via-void/55 to-void/10" />
+                  <div className="relative p-8">
+                    <time className="font-mono text-[11px] text-snow/70">
+                      {new Date(news[0].date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}
+                    </time>
+                    <h3 className="mt-2.5 font-display text-xl font-semibold leading-snug sm:text-2xl">
+                      {news[0].title}
+                    </h3>
+                    <p className="mt-3 line-clamp-2 max-w-xl text-sm leading-relaxed text-snow/75">{news[0].desc}</p>
+                  </div>
+                </a>
+              </Reveal>
+            )}
+
+            {/* Сетка из четырёх с картинками */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {news.slice(1, 5).map((n, i) => (
+                <Reveal key={n.link} delay={0.06 + i * 0.05}>
+                  <a
+                    href={n.link}
+                    rel="noopener"
+                    className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-hairline bg-white/[0.02] transition-colors duration-700 hover:border-hairline-2"
+                  >
+                    {n.img && (
+                      <div className="relative h-32 overflow-hidden">
+                        <img
+                          src={import.meta.env.BASE_URL + n.img}
+                          alt=""
+                          className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05]"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-1 flex-col p-5">
+                      <time className="font-mono text-[10px] text-fog">
+                        {new Date(n.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}
+                      </time>
+                      <h3 className="mt-1.5 line-clamp-3 text-[13px] font-medium leading-snug text-snow">{n.title}</h3>
+                    </div>
+                  </a>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= ВЕСТНИК ================= */}
+      <section className="mx-auto max-w-6xl px-4 py-24 sm:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+          <Reveal>
+            <Eyebrow>издание палаты</Eyebrow>
+            <h2 className="mt-5 font-display text-3xl font-semibold">Вестник ТПП</h2>
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-fog">
+              Журнал делового сообщества: мероприятия палаты, истории кубанских
+              компаний и отраслевая аналитика. Архив — {vestnik.length} выпусков.
+            </p>
+            <Link
+              to="/vestnik"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-snow transition-colors hover:text-pulse"
+            >
+              Смотреть архив
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10">→</span>
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="flex gap-4">
+              {vestnik.slice(0, 3).map((v, i) => (
+                <Link
+                  key={v.img}
+                  to="/vestnik"
+                  className={`block w-28 shrink-0 overflow-hidden rounded-[0.9rem] border border-hairline shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 sm:w-36 ${
+                    i === 1 ? 'translate-y-3' : i === 2 ? '-translate-y-2 max-sm:hidden' : ''
+                  }`}
+                >
+                  <img
+                    src={import.meta.env.BASE_URL + v.img}
+                    alt=""
+                    className="aspect-[3/4] w-full object-cover"
+                    loading="lazy"
+                  />
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ================= ЦИФРЫ ПАЛАТЫ ================= */}
       <section className="border-y border-hairline bg-abyss/40">
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-hairline lg:grid-cols-4">
@@ -198,37 +317,6 @@ export default function Home() {
               </a>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* ================= НОВОСТИ ================= */}
-      <section className="border-t border-hairline bg-abyss/40 py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <Reveal className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <Eyebrow>лента палаты</Eyebrow>
-              <h2 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">Новости</h2>
-            </div>
-            <Link to="/novosti" className="text-sm text-fog transition-colors hover:text-snow">
-              Все новости →
-            </Link>
-          </Reveal>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {news.slice(0, 6).map((n, i) => (
-              <Reveal key={n.link} delay={(i % 3) * 0.08}>
-                <a
-                  href={n.link}
-                  rel="noopener"
-                  className="group flex h-full flex-col rounded-[1.6rem] border border-hairline bg-white/[0.02] p-7 transition-colors duration-700 hover:border-hairline-2"
-                >
-                  <time className="font-mono text-[11px] text-fog">{new Date(n.date).toLocaleDateString('ru-RU')}</time>
-                  <h3 className="mt-3 line-clamp-3 text-[15px] font-medium leading-snug text-snow">{n.title}</h3>
-                  <p className="mt-3 line-clamp-3 flex-1 text-[13px] leading-relaxed text-fog">{n.desc}</p>
-                  <span className="mt-5 text-xs text-fog transition-colors group-hover:text-pulse">kuban.tpprf.ru ↗</span>
-                </a>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

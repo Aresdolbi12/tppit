@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Membership from './pages/Membership'
 import Region from './pages/Region'
+import Vestnik from './pages/Vestnik'
 import Barcodes from './pages/Barcodes'
 import Check from './pages/Check'
 import Pricing from './pages/Pricing'
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/o-palate" element={<About />} />
           <Route path="/chlenstvo" element={<Membership />} />
           <Route path="/region" element={<Region />} />
+          <Route path="/vestnik" element={<Vestnik />} />
           <Route path="/shtrih-kody" element={<Barcodes />} />
           <Route path="/proverka" element={<Check />} />
           <Route path="/tarify" element={<Pricing />} />

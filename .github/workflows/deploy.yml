@@ -26,47 +26,10 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - name: Обновить новости из RSS основного сайта
+      - name: Обновить новости и анонсы (скрипт общий с локальным запуском)
         working-directory: web
         continue-on-error: true
-        run: |
-          python3 - << 'EOF'
-          import re, json, html, urllib.request
-          req = urllib.request.Request(
-              'https://kuban.tpprf.ru/ru/news/?RSS',
-              headers={'User-Agent': 'Mozilla/5.0 (compatible; tppit-pages-build)'})
-          raw = urllib.request.urlopen(req, timeout=20).read().decode('utf-8')
-          items = []
-          for m in re.finditer(r'<item>(.*?)</item>', raw, re.S):
-              b = m.group(1)
-              def g(tag):
-                  mm = re.search(rf'<{tag}>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</{tag}>', b, re.S)
-                  return html.unescape(mm.group(1).strip()) if mm else ''
-              items.append({'title': g('title'), 'link': g('link'), 'date': g('pubDate'),
-                            'desc': re.sub(r'<[^>]+>', '', g('description'))[:220]})
-          if items:
-              json.dump(items[:8], open('src/data/news.json', 'w', encoding='utf-8'),
-                        ensure_ascii=False, indent=1)
-              print('news updated:', len(items))
-          # анонсы мероприятий: RSS нет — парсим листинг
-          req2 = urllib.request.Request(
-              'https://kuban.tpprf.ru/ru/announcements/',
-              headers={'User-Agent': 'Mozilla/5.0 (compatible; tppit-pages-build)'})
-          raw2 = urllib.request.urlopen(req2, timeout=20).read().decode('utf-8', 'replace')
-          ann, seen = [], set()
-          for m in re.finditer(r'<a[^>]+href="(/ru/announcements/(\d+)/)"[^>]*>(.*?)</a>', raw2, re.S):
-              title = ' '.join(html.unescape(re.sub(r'<[^>]+>', ' ', m.group(3))).split())
-              if not title or len(title) < 8 or m.group(1) in seen:
-                  continue
-              seen.add(m.group(1))
-              dm = re.findall(r'(\d{2}\.\d{2}\.\d{4})', raw2[max(0, m.start()-600):m.start()])
-              ann.append({'title': title, 'link': 'https://kuban.tpprf.ru' + m.group(1),
-                          'date': dm[-1] if dm else ''})
-          if ann:
-              json.dump(ann[:12], open('src/data/announcements.json', 'w', encoding='utf-8'),
-                        ensure_ascii=False, indent=1)
-              print('announcements updated:', len(ann))
-          EOF
+        run: python3 scripts/fetch_news.py
       - run: npm ci
         working-directory: web
       - run: npm run build

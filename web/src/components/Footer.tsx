@@ -27,6 +27,7 @@ export default function Footer() {
             <li><Link className="hover:text-snow" to="/proverka">Проверить штрих-код</Link></li>
             <li><Link className="hover:text-snow" to="/tarify">Тарифы и калькулятор</Link></li>
             <li><Link className="hover:text-snow" to="/novosti">Новости</Link></li>
+            <li><Link className="hover:text-snow" to="/vestnik">Вестник ТПП</Link></li>
           </ul>
         </div>
         <div>
